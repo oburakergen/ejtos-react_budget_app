@@ -64,6 +64,7 @@ const AllocationForm = (props) => {
                         type='number'
                         id='cost'
                         value={cost}
+                        min="0"
                         style={{ marginLeft: '2rem' , size: 10}}
                         onChange={(event) => setCost(event.target.value)}>
                     </input>
