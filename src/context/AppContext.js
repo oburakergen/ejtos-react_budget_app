@@ -89,6 +89,10 @@ const initialState = {
     currency: '£'
 };
 
+const totalExpenses = initialState.expenses.reduce((total, item) => {
+    return (total = total + item.cost);
+}, 0);
+
 // 2. Creates the context this is the thing our components import and use to get the state
 export const AppContext = createContext();
 
@@ -113,7 +117,10 @@ export const AppProvider = (props) => {
                 budget: state.budget,
                 remaining: remaining,
                 dispatch,
-                currency: state.currency
+                currency: state.currency,
+                totalExpenses: (state.expenses.reduce((total, item) => {
+                    return (total = total + item.cost);
+                }   , 0))
             }}
         >
             {props.children}

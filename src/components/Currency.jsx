@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import {useContext} from "react";
+import {AppContext} from "../context/AppContext";
 
 const Select = styled.select`
     width: 100%;
     height: 100%;
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     border: none;
     outline: none;
     background: lightgreen;
@@ -11,28 +13,26 @@ const Select = styled.select`
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
-    option {
-        background: lightgreen;
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: 600;
-        cursor: pointer;
-      
-      &:hover {
-        background: #fff;
-        color: #000;
-      }
+  option{
+    &:hover{
+        background-color: lightgreen;
     }
+  }
 `;
 
 export const Currency = () => {
+    const { currency,dispatch } = useContext(AppContext);
+
     return (
         <div>
-            <Select className="form-select form-select-md" name="selectCurrency" defaultValue="dl">
-                <option value="dl">$ Dollar</option>
-                <option value="po">£ Pound</option>
-                <option value="eu">€ Euro</option>
-                <option value="rpp">₹ Ruppee</option>
+            <Select className="form-select" name="selectCurrency" value={currency} onChange={(e) => dispatch({
+                type:"CHG_CURRENCY",
+                payload:e.target?.value || "$"
+            })}>
+               <option value="$">$ Dollar</option>
+                <option value="£">£ Pound</option>
+                <option value="€">€ Euro</option>
+                <option value="₹">₹ Ruppee</option>
             </Select>
         </div>
     )
