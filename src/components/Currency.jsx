@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {AppContext} from "../context/AppContext";
+import { useRef } from 'react';
+
 
 const Select = styled.select`
     width: 100%;
@@ -13,6 +15,7 @@ const Select = styled.select`
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
+  border-radius: 0.5rem;
   option{
     &:hover{
         background-color: lightgreen;
@@ -22,14 +25,36 @@ const Select = styled.select`
 
 export const Currency = () => {
     const { currency,dispatch } = useContext(AppContext);
+    const currencySelect = useRef(null);
+
+    useEffect(() => {
+         currencySelect.current.value = "";
+    },[currency]);
+    const getCurrency = () => {
+        switch (currency) {
+            case "£":
+                return "£ Pound";
+            case "€":
+                return "€ Euro";
+            case "₹":
+                return "₹ Ruppee";
+            default:
+                return "$ Dollar";
+        }
+    }
+
+    const onChangeCurrency = (e) => {
+        dispatch({
+            type:"CHG_CURRENCY",
+            payload: e.target?.value || "$"
+        })
+    }
 
     return (
         <div>
-            <Select className="form-select" name="selectCurrency" value={currency} onChange={(e) => dispatch({
-                type:"CHG_CURRENCY",
-                payload:e.target?.value || "$"
-            })}>
-               <option value="$">$ Dollar</option>
+            <Select ref={currencySelect} name="currency" onChange={onChangeCurrency} defaultValue={currency}>
+                <option value="" style={{display: "none"}}>Currency ({getCurrency(currency)})</option>
+                <option value="$">$ Dollar</option>
                 <option value="£">£ Pound</option>
                 <option value="€">€ Euro</option>
                 <option value="₹">₹ Ruppee</option>
