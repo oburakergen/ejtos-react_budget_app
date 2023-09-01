@@ -19,7 +19,7 @@ const Button = styled.button`
 `;
 
 const ExpenseItem = (props) => {
-    const { dispatch } = useContext(AppContext);
+    const { dispatch, currency } = useContext(AppContext);
 
     const handleDeleteExpense = () => {
         dispatch({
@@ -57,7 +57,7 @@ const ExpenseItem = (props) => {
     return (
         <tr>
             <td>{props.name}</td>
-            <td>£{props.cost}</td>
+            <td>{currency}{props.cost}</td>
             <td><Button className="btn btn-success rounded-circle" onClick={event=> increaseAllocation(props.name)}>+</Button></td>
             <td><Button className="btn btn-danger rounded-circle" onClick={event=> decreaseAllocation(props.name)}>-</Button></td>
             <td><TiDelete size='1.5em' onClick={handleDeleteExpense}></TiDelete></td>
