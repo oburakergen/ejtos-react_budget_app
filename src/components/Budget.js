@@ -6,7 +6,7 @@ const Budget = () => {
         console.log(e.target.value, e.target);
         let newBudget =  parseInt(e.target.value) || 2000;
         if (newBudget < totalExpenses) {
-            alert("Budget cannot be less than total expenses");
+            alert("You cannot reduce the budget value lower than the spending");
             newBudget = budget;
         }
 
