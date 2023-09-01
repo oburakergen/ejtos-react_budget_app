@@ -89,10 +89,6 @@ const initialState = {
     currency: '£'
 };
 
-const totalExpenses = initialState.expenses.reduce((total, item) => {
-    return (total = total + item.cost);
-}, 0);
-
 // 2. Creates the context this is the thing our components import and use to get the state
 export const AppContext = createContext();
 
